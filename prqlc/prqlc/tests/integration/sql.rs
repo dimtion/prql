@@ -6417,3 +6417,18 @@ fn test_redshift_text_contains_uses_double_pipe() {
       employees
     ");
 }
+
+#[test]
+fn test_redshift_regex_search() {
+    assert_snapshot!(compile_with_sql_dialect(r###"
+    from tracks
+    derive is_bob_marley = artist_name ~= "Bob\\sMarley"
+    "###, sql::Dialect::Redshift
+    ).unwrap(), @r"
+    SELECT
+      *,
+      artist_name ~ 'Bob\sMarley' AS is_bob_marley
+    FROM
+      tracks
+    ");
+}

@@ -146,8 +146,9 @@ snapshot_kind: text
    FROM
      tracks
    WHERE
-     REGEXP(name, 'Love')
+-    REGEXP(name, 'Love')
 -    AND milliseconds / 1000 / 60 BETWEEN 3 AND 4
++    name ~ 'Love'
 +    AND ((milliseconds * 1.0 / 1000) * 1.0 / 60) BETWEEN 3 AND 4
    ORDER BY
      track_id

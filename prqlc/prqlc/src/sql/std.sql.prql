@@ -332,6 +332,11 @@ module redshift {
     # https://docs.aws.amazon.com/redshift/latest/dg/r_concat_op.html
     let contains = substr column -> s"{column:0} LIKE '%' || {substr:0} || '%'"
   }
+
+  # Regex functions
+  # https://docs.aws.amazon.com/redshift/latest/dg/pattern-matching-conditions-posix.html
+  @{binding_strength=9}
+  let regex_search = text pattern -> s"{text} ~ {pattern}"
 }
 
 module glaredb {
